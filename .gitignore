@@ -1,0 +1,12 @@
+*
+
+!*.*
+!*/
+!Makefile
+
+*.pdf
+*.txt
+*.a
+
+.vscode
+**/obj
