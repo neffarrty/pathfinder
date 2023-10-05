@@ -1,12 +1,9 @@
 *
 
-!*.*
 !*/
+!*.[ch]
 !Makefile
-
-*.pdf
-*.txt
-*.a
 
 .vscode
 **/obj
+

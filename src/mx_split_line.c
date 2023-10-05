@@ -23,8 +23,8 @@ bool mx_is_valid_island(const char* s) {
 }
 
 t_bridge *mx_split_line(char* line) {
-    int defis = mx_char_index(line, '-');
-    if(defis == -1) {
+    int hyphen = mx_char_index(line, '-');
+    if(hyphen == -1) {
         return NULL;
     }
 
@@ -35,8 +35,8 @@ t_bridge *mx_split_line(char* line) {
 
     t_bridge *bridge = (t_bridge*)malloc(sizeof(t_bridge));
 
-    bridge->left = mx_strndup(line, defis);
-    bridge->right = mx_strndup(&line[defis + 1], comma - defis - 1);
+    bridge->left = mx_strndup(line, hyphen);
+    bridge->right = mx_strndup(&line[hyphen + 1], comma - hyphen - 1);
 
     if(!mx_is_valid_island(bridge->left) || !mx_is_valid_island(bridge->right)) {
         return NULL;
