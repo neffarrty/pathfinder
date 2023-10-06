@@ -38,6 +38,8 @@ unsigned long mx_hex_to_nbr(const char *hex);
 
 char *mx_itoa(int number);
 
+int mx_atoi(const char *str);
+
 void mx_foreach(int *arr, int size, void (*f)(int));
 
 int mx_binary_search(char **arr, int size, const char *s, int *count);
@@ -85,6 +87,10 @@ int mx_count_substr(const char *str, const char *sub);
 int mx_count_words(const char *str, char delimiter);
 
 bool mx_isspace(char c);
+
+bool mx_isdigit(int c);
+
+bool mx_isalpha(int c);
 
 char *mx_strtrim(const char *str);
 

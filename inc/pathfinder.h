@@ -8,12 +8,6 @@
 #include "../libmx/inc/libmx.h"
 
 int mx_file_size(int fd);
-void mx_printerr(const char* s);
-
-//TO LIBMX
-int mx_atoi(const char *str);
-bool mx_isdigit(int c);
-bool mx_isalpha(int c);
 
 typedef struct s_bridge {
     char* left;
@@ -21,10 +15,10 @@ typedef struct s_bridge {
     int cost;
 } t_bridge;
 
-void read_file(const char* filename);
-t_bridge *mx_split_line(char* line);
+void read_file(t_list* list, const char* filename);
+t_bridge* mx_split_line(char* line);
 
-enum {
+enum error_type {
 	INVALID_ARGS,
 	INVALID_FILE,
 	EMPTY_FILE,
@@ -35,6 +29,7 @@ enum {
 	INVALID_SUM_OF_BRIDGES
 };
 
+void mx_printerr(const char* s);
 void mx_handle_err(int err_type, void* param);
 
 #endif
