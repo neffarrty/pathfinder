@@ -1,5 +1,4 @@
 #include "../inc/pathfinder.h"
-#include <stdio.h>
 
 int mx_char_index(char* str, char c) {
     int i = 0;

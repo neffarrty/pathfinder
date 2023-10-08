@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <limits.h>
 
 #include "../libmx/inc/libmx.h"
 
@@ -15,10 +16,10 @@ typedef struct s_bridge {
     int cost;
 } t_bridge;
 
-void read_file(t_list* list, const char* filename);
+void read_file(t_list** list, const char* filename);
 t_bridge* mx_split_line(char* line);
 
-enum error_type {
+enum e_error {
 	INVALID_ARGS,
 	INVALID_FILE,
 	EMPTY_FILE,
