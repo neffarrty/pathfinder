@@ -33,6 +33,10 @@ enum e_error {
 void mx_printerr(const char* s);
 void mx_handle_err(int err_type, void* param);
 
+bool mx_list_has_bridge(t_list* list, t_bridge* key);
+bool mx_check_duplicates(t_list* list);
+bool check_invalid_sum(t_list* list);
+
 #endif
 
 

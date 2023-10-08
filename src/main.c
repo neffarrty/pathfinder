@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-bool is_valid_sum(t_list* list) {
+bool check_invalid_sum(t_list* list) {
     long sum = 0;
     t_list* tmp = list;
 
@@ -8,34 +8,13 @@ bool is_valid_sum(t_list* list) {
         t_bridge* bridge = (t_bridge*)tmp->data;
         sum += bridge->cost;
         if(sum > INT_MAX) {
-            return false;
+            return true;
         }
         tmp = tmp->next;
     }
 
-    return true;
+    return false;
 }
-
-bool has_duplicates(t_list* list) {
-	t_list* tmp = list;
-
-	while(tmp) {
-		t_bridge* key = (t_bridge*)tmp->data;
-		t_list* tmp2 = tmp->next;
-
-		while(tmp2) {
-			t_bridge* bridge = (t_bridge*)tmp2->data;
-			if(mx_strcmp(key->left, bridge->left) == 0 && mx_strcmp(key->right, bridge->right) == 0) {
-				return true;
-			}
-			tmp2 = tmp2->next;
-		}
-		tmp = tmp->next;
-	}
-
-	return false;
-}
-
 
 int main(int argc, const char* argv[]) {
     if(argc != 2) {
@@ -56,11 +35,11 @@ int main(int argc, const char* argv[]) {
     
     read_file(&list_of_bridges, filename);
 
-    if(has_duplicates(list_of_bridges)) {
+    if(mx_check_duplicates(list_of_bridges)) {
         mx_handle_err(DUPLICATE_BRIDGES, NULL);
     }
 
-    if(!is_valid_sum(list_of_bridges)) {
+    if(check_invalid_sum(list_of_bridges)) {
         mx_handle_err(INVALID_SUM_OF_BRIDGES, NULL);
     }
 
