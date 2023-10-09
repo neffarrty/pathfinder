@@ -16,6 +16,10 @@ bool check_invalid_sum(t_list* list) {
     return false;
 }
 
+#include <stdio.h>
+// MOVE TO HEADER AFTER TEST
+int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands);
+
 int main(int argc, const char* argv[]) {
     if(argc != 2) {
         mx_handle_err(INVALID_ARGS, NULL);
@@ -43,10 +47,31 @@ int main(int argc, const char* argv[]) {
         mx_handle_err(INVALID_SUM_OF_BRIDGES, NULL);
     }
 
-    for(t_list* i = list_of_bridges; i != NULL; i = i->next) {
-        t_bridge* bridge = (t_bridge*)i->data;
-        printf("%s-%s,%d\n", bridge->left, bridge->right, bridge->cost);
+    // hardcode of list of islands to test creating adjacency matrix
+
+    t_list* islands_list = NULL;
+    char *islands[] = { "Kharkiv", "Kyiv", "Odesa", "Donetsk", "Krym", NULL };
+    for(int i = 0; islands[i] != NULL; i++) {
+        mx_push_back(&islands_list, islands[i]);
     }
+
+    // printf("created list\n");
+    // for(t_list* i = islands_list; i != NULL; i = i->next) {
+    //     printf("%s\n", (char*)i->data);
+    // }
+
+    int **matrix = mx_create_adjacency_matrix(list_of_bridges, islands_list);
+
+    for(int i = 0; i < 5; i++) {
+        for(int j = 0; j < 5; j++) {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    // for(t_list* i = list_of_bridges; i != NULL; i = i->next) {
+    //     t_bridge* bridge = (t_bridge*)i->data;
+    //     printf("%s-%s,%d\n", bridge->left, bridge->right, bridge->cost);
+    // }
 
     return EXIT_SUCCESS;
 }

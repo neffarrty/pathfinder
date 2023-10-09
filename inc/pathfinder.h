@@ -30,7 +30,6 @@ enum e_error {
 	INVALID_SUM_OF_BRIDGES
 };
 
-void mx_printerr(const char* s);
 void mx_handle_err(int err_type, void* param);
 
 bool mx_list_has_bridge(t_list* list, t_bridge* key);

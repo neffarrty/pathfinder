@@ -9,12 +9,14 @@ int mx_atoi(const char *str) {
 	else {
 		is_below_zero = 1;
 	}
+
 	if (!(mx_isdigit(str[0])) && str[0] != '-' && str[0] != '+') {
 		return -1;
 	}
 	if (str[0] == '-' || str[0] == '+') {
 		str++;
 	}
+
 	int i = 0;
 	for(; str[i] != '\0'; i++) {
 		if(!mx_isdigit(str[i])) {
@@ -26,5 +28,6 @@ int mx_atoi(const char *str) {
 	if (str[i] != '\0') {
 		return -1;
 	}
+	
 	return result * is_below_zero;
 }
