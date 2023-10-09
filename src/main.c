@@ -55,11 +55,6 @@ int main(int argc, const char* argv[]) {
         mx_push_back(&islands_list, islands[i]);
     }
 
-    // printf("created list\n");
-    // for(t_list* i = islands_list; i != NULL; i = i->next) {
-    //     printf("%s\n", (char*)i->data);
-    // }
-
     int **matrix = mx_create_adjacency_matrix(list_of_bridges, islands_list);
 
     for(int i = 0; i < 5; i++) {
@@ -68,10 +63,6 @@ int main(int argc, const char* argv[]) {
         }
         printf("\n");
     }
-    // for(t_list* i = list_of_bridges; i != NULL; i = i->next) {
-    //     t_bridge* bridge = (t_bridge*)i->data;
-    //     printf("%s-%s,%d\n", bridge->left, bridge->right, bridge->cost);
-    // }
 
     return EXIT_SUCCESS;
 }
