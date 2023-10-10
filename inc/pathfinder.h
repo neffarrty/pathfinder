@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <limits.h>
-
 #include "../libmx/inc/libmx.h"
 
 typedef struct s_bridge {
@@ -14,8 +13,15 @@ typedef struct s_bridge {
     int cost;
 } t_bridge;
 
-void read_file(t_list** list, const char* filename);
+int read_file(const char* filename, t_list** bridges);
+
+t_list* mx_create_islands_list(t_list* bridges);
+
+bool mx_is_valid_island(const char* s);
+
 t_bridge* mx_split_line(char* line);
+
+int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands);
 
 enum e_error {
 	INVALID_ARGS,
@@ -31,8 +37,12 @@ enum e_error {
 void mx_handle_err(int err_type, void* param);
 
 bool mx_list_has_bridge(t_list* list, t_bridge* key);
+
 bool mx_check_duplicates(t_list* list);
+
 bool check_invalid_sum(t_list* list);
+
+int mx_list_index_of(t_list* list, const char* key);
 
 #endif
 

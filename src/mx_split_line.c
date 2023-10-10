@@ -1,16 +1,5 @@
 #include "../inc/pathfinder.h"
 
-bool mx_is_valid_island(const char* s) {
-    if(!mx_strlen(s)) {
-        return false;
-    }
-    
-    for(int i = 0; s[i]; i++) {
-        if(!mx_isalpha(s[i])) return false;
-    }
-    return true;
-}
-
 t_bridge *mx_split_line(char* line) {
     int hyphen = mx_get_char_index(line, '-');
     if(hyphen < 0) {

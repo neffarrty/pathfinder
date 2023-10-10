@@ -1,24 +1,5 @@
 #include "../inc/pathfinder.h"
-
-bool check_invalid_sum(t_list* list) {
-    long sum = 0;
-    t_list* tmp = list;
-
-    while(tmp) {
-        t_bridge* bridge = (t_bridge*)tmp->data;
-        sum += bridge->cost;
-        if(sum > INT_MAX) {
-            return true;
-        }
-        tmp = tmp->next;
-    }
-
-    return false;
-}
-
 #include <stdio.h>
-// MOVE TO HEADER AFTER TEST
-int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands);
 
 int main(int argc, const char* argv[]) {
     if(argc != 2) {
@@ -27,7 +8,9 @@ int main(int argc, const char* argv[]) {
 
     const char* filename = argv[1];
     int fd = open(filename, O_RDONLY);
-    t_list* list_of_bridges = NULL;
+    t_list* bridges_list = NULL;
+    t_list* islands_list = NULL;
+    int num_of_islands = 0;
 
     if(fd < 0) {
         mx_handle_err(INVALID_FILE, (void*)filename);
@@ -37,28 +20,33 @@ int main(int argc, const char* argv[]) {
         mx_handle_err(EMPTY_FILE, (void*)filename);
     }
     
-    read_file(&list_of_bridges, filename);
+    num_of_islands = read_file(filename, &bridges_list);
+    printf("number of islands = %d\n", num_of_islands);
 
-    if(mx_check_duplicates(list_of_bridges)) {
+    if(mx_check_duplicates(bridges_list)) {
         mx_handle_err(DUPLICATE_BRIDGES, NULL);
     }
 
-    if(check_invalid_sum(list_of_bridges)) {
+    if(check_invalid_sum(bridges_list)) {
         mx_handle_err(INVALID_SUM_OF_BRIDGES, NULL);
     }
 
-    // hardcode of list of islands to test creating adjacency matrix
+    islands_list = mx_create_islands_list(bridges_list); 
 
-    t_list* islands_list = NULL;
-    char *islands[] = { "Kharkiv", "Kyiv", "Odesa", "Donetsk", "Krym", NULL };
-    for(int i = 0; islands[i] != NULL; i++) {
-        mx_push_back(&islands_list, islands[i]);
+    if(mx_list_size(islands_list) != num_of_islands) {
+        mx_handle_err(INVALID_NUM_OF_ISLANDS, NULL);
     }
+    // hardcode of list of islands to test creating adjacency matrix - REMOVE
 
-    int **matrix = mx_create_adjacency_matrix(list_of_bridges, islands_list);
+    // char *islands[] = { "Kharkiv", "Kyiv", "Odesa", "Donetsk", "Krym", NULL };
+    // for(int i = 0; islands[i] != NULL; i++) {
+    //     mx_push_back(&islands_list, islands[i]);
+    // }
 
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5; j++) {
+    int **matrix = mx_create_adjacency_matrix(bridges_list, islands_list);
+
+    for(int i = 0; i < num_of_islands; i++) {
+        for(int j = 0; j < num_of_islands; j++) {
             printf("%d\t", matrix[i][j]);
         }
         printf("\n");

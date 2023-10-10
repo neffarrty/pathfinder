@@ -20,7 +20,7 @@ void mx_handle_err(int err_type, void* param) {
             break;
         case INVALID_LINE:
             mx_printerr("error: line ");
-            mx_printerr(mx_itoa(*(int*)param + 1));
+            mx_printerr(mx_itoa(*(int*)param));
             mx_printerr(" is not valid\n");
             break;
         case INVALID_NUM_OF_ISLANDS:
