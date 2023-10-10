@@ -1,15 +1,5 @@
 #include "../inc/pathfinder.h"
 
-int mx_char_index(char* str, char c) {
-    int i = 0;
-    while(str[i]) {
-        if(str[i] == c) return i;
-        i++;
-    }
-
-    return -1;
-}
-
 bool mx_is_valid_island(const char* s) {
     if(!mx_strlen(s)) {
         return false;
@@ -22,13 +12,13 @@ bool mx_is_valid_island(const char* s) {
 }
 
 t_bridge *mx_split_line(char* line) {
-    int hyphen = mx_char_index(line, '-');
-    if(hyphen == -1) {
+    int hyphen = mx_get_char_index(line, '-');
+    if(hyphen < 0) {
         return NULL;
     }
 
-    int comma = mx_char_index(line, ',');
-    if(comma == -1) {
+    int comma = mx_get_char_index(line, ',');
+    if(comma < 0) {
         return NULL;
     }
 
