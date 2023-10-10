@@ -102,6 +102,8 @@ char **mx_strsplit(const char *s, char c);
 
 char *mx_strjoin(char const *s1, char const *s2);
 
+int mx_file_size(int fd);
+
 char *mx_file_to_str (const char *filename);
 
 char *mx_replace_substr(const char *str, const char *sub, const char *replace);

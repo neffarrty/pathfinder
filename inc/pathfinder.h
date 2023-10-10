@@ -8,8 +8,6 @@
 
 #include "../libmx/inc/libmx.h"
 
-int mx_file_size(int fd);
-
 typedef struct s_bridge {
     char* left;
     char* right;
