@@ -1,5 +1,6 @@
 CC = clang
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+ARFLAGS = rcs
 
 TARGET = libmx.a
 
@@ -14,7 +15,7 @@ $(TARGET):
 	mkdir obj/
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/*.c
 	mv *.o $(OBJ_DIR)
-	ar rcs $(TARGET) $(OBJ_DIR)/*.o
+	ar $(ARFLAGS) $(TARGET) $(OBJ_DIR)/*.o
 
 clean:
 	rm -rf $(OBJ_DIR)
