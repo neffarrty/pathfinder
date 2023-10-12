@@ -1,9 +1,10 @@
 *
 
-!*/
+# !*/
+
 !*.[ch]
 !Makefile
 
-.vscode
-**/obj
+# .vscode
+# **/obj
 
