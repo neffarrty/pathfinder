@@ -12,10 +12,10 @@ SRC_DIR = src
 all: $(TARGET)
 	
 $(TARGET):	
-	mkdir obj/
+	mkdir $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/*.c
 	mv *.o $(OBJ_DIR)
-	ar $(ARFLAGS) $(TARGET) $(OBJ_DIR)/*.o
+	ar $(ARFLAGS) $@ $(OBJ_DIR)/*.o
 
 clean:
 	rm -rf $(OBJ_DIR)
@@ -23,9 +23,6 @@ clean:
 uninstall:
 	rm -f $(TARGET)
 
-reinstall: 
-	make clean 
-	make uninstall
-	make all
+reinstall: clean uninstall all
 
 
