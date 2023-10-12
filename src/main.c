@@ -36,12 +36,6 @@ int main(int argc, const char* argv[]) {
     if(mx_list_size(islands_list) != num_of_islands) {
         mx_handle_err(INVALID_NUM_OF_ISLANDS, NULL);
     }
-    // hardcode of list of islands to test creating adjacency matrix - REMOVE
-
-    // char *islands[] = { "Kharkiv", "Kyiv", "Odesa", "Donetsk", "Krym", NULL };
-    // for(int i = 0; islands[i] != NULL; i++) {
-    //     mx_push_back(&islands_list, islands[i]);
-    // }
 
     int **matrix = mx_create_adjacency_matrix(bridges_list, islands_list);
 
