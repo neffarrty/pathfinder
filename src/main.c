@@ -6,12 +6,11 @@ int main(int argc, const char* argv[]) {
         mx_handle_err(INVALID_ARGS, NULL);
     }
 
-    const char* filename = argv[1];
-    int fd = open(filename, O_RDONLY);
-    t_list* bridges_list = NULL;
-    t_list* islands_list = NULL;
-    int num_of_islands = 0;
+    const char *filename = argv[1];
+    int fd, num_of_islands = 0;
+    t_list *bridges_list = NULL, *islands_list = NULL;
 
+    fd = open(filename, O_RDONLY);
     if(fd < 0) {
         mx_handle_err(INVALID_FILE, (void*)filename);
     }
@@ -21,7 +20,6 @@ int main(int argc, const char* argv[]) {
     }
     
     num_of_islands = read_file(filename, &bridges_list);
-    printf("number of islands = %d\n", num_of_islands);
 
     if(mx_check_duplicates(bridges_list)) {
         mx_handle_err(DUPLICATE_BRIDGES, NULL);
@@ -41,9 +39,29 @@ int main(int argc, const char* argv[]) {
 
     for(int i = 0; i < num_of_islands; i++) {
         for(int j = 0; j < num_of_islands; j++) {
-            printf("%d\t", matrix[i][j]);
+            if(matrix[i][j] == INT_MAX) {
+                printf("%s\t", "inf");
+            }
+            else printf("%d\t", matrix[i][j]);
         }
         printf("\n");
+    }
+    printf("\n");
+
+    // mx_floyd_warshall(matrix, num_of_islands);
+
+    // for(int i = 0; i < num_of_islands; i++) {
+    //     for(int j = 0; j < num_of_islands; j++) {
+    //         if(matrix[i][j] == INT_MAX) {
+    //             printf("%s\t", "inf");
+    //         }
+    //         else printf("%d\t", matrix[i][j]);
+    //     }
+    //     printf("\n\n");
+    // }
+
+    for(int i = 0; i < num_of_islands; i++) {
+        mx_dijkstra(matrix, num_of_islands, i, islands_list);
     }
 
     return EXIT_SUCCESS;
