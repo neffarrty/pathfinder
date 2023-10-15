@@ -14,3 +14,4 @@ bool mx_check_duplicates(t_list* list) {
 	return false;
 }
 
+

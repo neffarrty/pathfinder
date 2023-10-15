@@ -21,7 +21,7 @@ void mx_print_unicode(wchar_t c) {
         str[2] = ((c >> 6 ) & 0x3F) | 0x80;
         str[3] = ((c >> 0 ) & 0x3F) | 0x80;
     }
-    write(1, str, 5);
+    write(STDOUT_FILENO, str, 5);
 }
 
 

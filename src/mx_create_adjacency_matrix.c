@@ -31,3 +31,5 @@ int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands) {
 
     return matrix;
 }
+
+

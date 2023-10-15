@@ -40,11 +40,7 @@ t_list* mx_create_islands_list(t_list* bridges) {
         tmp = tmp->next;
     }
 
-    // t_list* temp = islands;
-    // while(tmp) {
-    //     printf("%s\n", (char*)temp->data);
-    //     tmp = tmp->next;
-    // }
     return islands;
 }
+
 

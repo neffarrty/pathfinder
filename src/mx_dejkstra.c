@@ -1,11 +1,57 @@
 #include "../inc/pathfinder.h"
 
+void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands) {
+    mx_printstr("========================================\n");
+    mx_printstr("Path: ");
+    mx_printstr((char*)mx_list_get_by_index(islands, start));
+    mx_printstr(" -> ");
+    mx_printstr((char*)mx_list_get_by_index(islands, end));
+    mx_printchar('\n');
+    mx_printstr("Route: ");
+
+    int size = mx_list_size(route);
+    t_list* tmp = route;
+    for(int i = 0; i < size; i++) {
+        if(i == size - 1) {
+            mx_printstr((char*)tmp->data);
+            mx_printchar('\n');
+            mx_printstr("Distance: ");
+            mx_printint(distance);
+            mx_printstr("\n========================================\n");
+        }
+        else {
+            mx_printstr((char*)tmp->data);
+            mx_printstr(" -> ");
+        }
+        tmp = tmp->next;
+    }
+}
+
+// void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands) {
+//     printf("========================================\n");
+//     printf("Path: %s -> %s\n", (char*)mx_list_get_by_index(islands, start), (char*)mx_list_get_by_index(islands, end));
+
+//     int size = mx_list_size(route);
+//     t_list* tmp = route;
+//     printf("Route: ");
+//     for(int i = 0; i < size; i++) {
+//         if(i == size - 1) {
+//             printf("%s\nDistance: %d", (char*)tmp->data, distance);
+//             printf("\n========================================\n");
+//         }
+//         else {
+//             printf("%s -> ", (char*)tmp->data);
+//         }
+//         tmp = tmp->next;
+//     }
+// }
+
 void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
     int* distances = (int*)malloc(size * sizeof(int));
     bool* visited = (bool*)malloc(size * sizeof(bool));
-    int index = 0, min = 0;
+    int index = 0, weight = 0;
 
-    for(int i = 0; i < size; i++) {
+    for(int i = start; i < size; i++) {
         distances[i] = INT_MAX;
         visited[i] = false;
     }
@@ -13,19 +59,19 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
 
     while (index < INT_MAX) {
         index = INT_MAX;
-        min = INT_MAX;
+        weight = INT_MAX;
         
-        for (int i = 0; i < size; i++) {
-            if (!visited[i] && distances[i] < min) { 
+        for (int i = start; i < size; i++) {
+            if (!visited[i] && distances[i] < weight) { 
                 index = i;
-                min = distances[i];
+                weight = distances[i];
             }
         }
             
         if (index != INT_MAX) {
-            for (int i = 0; i < size; i++) {
+            for (int i = start; i < size; i++) {
                 if (adj_matrix[index][i]) {
-                    int temp = min + adj_matrix[index][i];
+                    int temp = weight + adj_matrix[index][i];
                     
                     if (temp < distances[i]) {
                         distances[i] = temp;
@@ -36,13 +82,12 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
         }
     }
 
-    for (int i = 0; i < size; i++) {
+    for (int i = start; i < size; i++) {
         t_list* path = NULL;
 
         if (distances[i] != INT_MAX) { 
             int distance = distances[i];
             if(i != start) {
-                printf("========================================\nPath: %s -> %s\n", (char*)mx_list_get_by_index(islands, start), (char*)mx_list_get_by_index(islands, i));  
                 int end = i;
                 int weight = distances[end];
                 mx_push_front(&path, (void*)mx_list_get_by_index(islands, end));
@@ -60,22 +105,13 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
                         }
                     }
                 }
-
-                int size = mx_list_size(path);
-                t_list* tmp = path;
-                printf("Route: ");
-                for(int i = 0; i < size; i++) {
-                    if(i == size - 1) {
-                        printf("%s\nDistance: %d\n========================================\n", (char*)tmp->data, distance);
-                    }
-                    else {
-                        printf("%s -> ", (char*)tmp->data);
-                    }
-                    tmp = tmp->next;
-                }
+                mx_print_path(start, i, distance, path, islands);
             }
         }
     }
+
+    free(distances);
+    free(visited);
 }
 
 

@@ -44,11 +44,13 @@ bool check_invalid_sum(t_list* list);
 
 int mx_list_index_of(t_list* list, const char* key);
 
+char* mx_list_get_by_index(t_list* list, int i);
+
 int mx_min(int a, int b);
 
 void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands);
 
-char* mx_list_get_by_index(t_list* list, int i);
+void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands);
 
 #endif
 

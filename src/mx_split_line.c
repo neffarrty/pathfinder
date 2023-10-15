@@ -23,3 +23,5 @@ t_bridge *mx_split_line(char* line) {
 
     return bridge;
 }
+
+

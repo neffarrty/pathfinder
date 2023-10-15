@@ -34,6 +34,8 @@ double mx_pow(double n, unsigned int pow);
 
 int mx_sqrt(int x);
 
+int mx_min(int a, int b);
+
 char *mx_nbr_to_hex(unsigned long nbr);
 
 unsigned long mx_hex_to_nbr(const char *hex);

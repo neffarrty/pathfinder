@@ -12,3 +12,4 @@ char* mx_list_get_by_index(t_list* list, int i) {
     return (char*)tmp->data;
 }
 
+

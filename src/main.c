@@ -37,16 +37,16 @@ int main(int argc, const char* argv[]) {
 
     int **matrix = mx_create_adjacency_matrix(bridges_list, islands_list);
 
-    for(int i = 0; i < num_of_islands; i++) {
-        for(int j = 0; j < num_of_islands; j++) {
-            if(matrix[i][j] == INT_MAX) {
-                printf("%s\t", "inf");
-            }
-            else printf("%d\t", matrix[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
+    // for(int i = 0; i < num_of_islands; i++) {
+    //     for(int j = 0; j < num_of_islands; j++) {
+    //         if(matrix[i][j] == INT_MAX) {
+    //             printf("%s\t", "inf");
+    //         }
+    //         else printf("%d\t", matrix[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    // printf("\n");
 
     // mx_floyd_warshall(matrix, num_of_islands);
 
@@ -66,4 +66,5 @@ int main(int argc, const char* argv[]) {
 
     return EXIT_SUCCESS;
 }
+
 
