@@ -41,6 +41,11 @@ int main(int argc, const char* argv[]) {
         mx_dijkstra(matrix, num_of_islands, i, islands_list);
     }
 
+    for(int i = 0; i < num_of_islands; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+
     return EXIT_SUCCESS;
 }
 

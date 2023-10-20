@@ -8,15 +8,6 @@ int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands) {
         mx_memset((void*)matrix[i], 0, size);
     }
 
-    // for(int i = 0; i < size; i++) {
-    //     for(int j = 0; j < size; j++) {
-    //         matrix[i][j] = INT_MAX;
-    //         if(i == j) {
-    //             matrix[i][j] = 0;
-    //         }
-    //     }
-    // }
-
     t_list* tmp = bridges;
     while(tmp) {
         t_bridge* bridge = (t_bridge*)tmp->data;

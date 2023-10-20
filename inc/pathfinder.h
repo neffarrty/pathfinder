@@ -50,7 +50,7 @@ int mx_min(int a, int b);
 
 void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands);
 
-void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands);
+void mx_print_path(int start, int end, t_list* route, t_list* islands, int** matrix);
 
 #endif
 

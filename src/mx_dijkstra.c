@@ -1,11 +1,16 @@
 #include "../inc/pathfinder.h"
 
+struct route_point {
+    char* island;
+    int distance;
+};
+
 void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
     int* distances = (int*)malloc(size * sizeof(int));
     bool* visited = (bool*)malloc(size * sizeof(bool));
     int index = 0, weight = 0;
 
-    for(int i = start; i < size; i++) {
+    for(int i = 0; i < size; i++) {
         distances[i] = INT_MAX;
         visited[i] = false;
     }
@@ -15,7 +20,7 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
         index = INT_MAX;
         weight = INT_MAX;
         
-        for (int i = start; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             if (!visited[i] && distances[i] < weight) { 
                 index = i;
                 weight = distances[i];
@@ -23,7 +28,7 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
         }
             
         if (index != INT_MAX) {
-            for (int i = start; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 if (adj_matrix[index][i]) {
                     int temp = weight + adj_matrix[index][i];
                     
@@ -40,7 +45,6 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
         t_list* path = NULL;
 
         if (distances[i] != INT_MAX) { 
-            int distance = distances[i];
             if(i != start) {
                 int end = i;
                 int weight = distances[end];
@@ -59,7 +63,7 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
                         }
                     }
                 }
-                mx_print_path(start, i, distance, path, islands);
+                mx_print_path(start, i, path, islands, adj_matrix);
             }
         }
     }

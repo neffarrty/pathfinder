@@ -1,5 +1,4 @@
 #include "../inc/pathfinder.h"
-#include <stdio.h>
 
 int read_file(const char* filename, t_list** bridges) {
     char* file_str = mx_file_to_str(filename);
@@ -16,13 +15,14 @@ int read_file(const char* filename, t_list** bridges) {
             mx_push_back(bridges, (void*)bridge);
         }
         else {
-            int line_num = i + 1;
-            mx_handle_err(INVALID_LINE, (void*)&line_num);
+            int line = i + 1;
+            mx_handle_err(INVALID_LINE, (void*)&line);
         }
     }
+    free(file_str);
+    mx_del_strarr(&lines);
 
     return num;
-
 }
 
 t_list* mx_create_islands_list(t_list* bridges) {

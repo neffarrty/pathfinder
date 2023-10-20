@@ -1,6 +1,29 @@
 #include "../inc/pathfinder.h"
 
-void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands) {
+void mx_print_distance(t_list* route, t_list* islands, int** matrix, int size) {
+    t_list* tmp = route;
+    int sum = 0;
+    
+    while(tmp->next) {
+        int left = mx_list_index_of(islands, (char*)tmp->data);
+        int right = mx_list_index_of(islands, (char*)tmp->next->data);
+        mx_printint(matrix[left][right]);
+        sum += matrix[left][right];
+
+        if(tmp->next->next != NULL) {
+            mx_printstr(" + ");
+        }
+        else {
+            if(size > 2) {
+                mx_printstr(" = ");
+                mx_printint(sum);
+            }
+        }
+        tmp = tmp->next;
+    }
+}
+
+void mx_print_path(int start, int end, t_list* route, t_list* islands, int** matrix) {
     mx_printstr("========================================\n");
     mx_printstr("Path: ");
     mx_printstr((char*)mx_list_get_by_index(islands, start));
@@ -16,7 +39,7 @@ void mx_print_path(int start, int end, int distance, t_list* route, t_list* isla
             mx_printstr((char*)tmp->data);
             mx_printchar('\n');
             mx_printstr("Distance: ");
-            mx_printint(distance);
+            mx_print_distance(route, islands, matrix, size);
             mx_printstr("\n========================================\n");
         }
         else {
@@ -26,4 +49,5 @@ void mx_print_path(int start, int end, int distance, t_list* route, t_list* isla
         tmp = tmp->next;
     }
 }
+
 
