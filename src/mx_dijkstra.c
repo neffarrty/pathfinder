@@ -1,24 +1,5 @@
 #include "../inc/pathfinder.h"
 
-// void mx_print_path(int start, int end, int distance, t_list* route, t_list* islands) {
-//     printf("========================================\n");
-//     printf("Path: %s -> %s\n", (char*)mx_list_get_by_index(islands, start), (char*)mx_list_get_by_index(islands, end));
-
-//     int size = mx_list_size(route);
-//     t_list* tmp = route;
-//     printf("Route: ");
-//     for(int i = 0; i < size; i++) {
-//         if(i == size - 1) {
-//             printf("%s\nDistance: %d", (char*)tmp->data, distance);
-//             printf("\n========================================\n");
-//         }
-//         else {
-//             printf("%s -> ", (char*)tmp->data);
-//         }
-//         tmp = tmp->next;
-//     }
-// }
-
 void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
     int* distances = (int*)malloc(size * sizeof(int));
     bool* visited = (bool*)malloc(size * sizeof(bool));
