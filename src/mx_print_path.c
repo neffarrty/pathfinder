@@ -37,8 +37,7 @@ void mx_print_path(int start, int end, t_list* route, t_list* islands, int** mat
     for(int i = 0; i < size; i++) {
         if(i == size - 1) {
             mx_printstr((char*)tmp->data);
-            mx_printchar('\n');
-            mx_printstr("Distance: ");
+            mx_printstr("\nDistance: ");
             mx_print_distance(route, islands, matrix, size);
             mx_printstr("\n========================================\n");
         }

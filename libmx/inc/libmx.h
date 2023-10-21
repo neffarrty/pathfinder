@@ -149,6 +149,8 @@ void mx_pop_front(t_list **head);
 
 void mx_pop_back(t_list **head);
 
+void mx_delete_list(t_list **head);
+
 int mx_list_size(t_list *list);
 
 t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));

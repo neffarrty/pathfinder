@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-int read_file(const char* filename, t_list** bridges) {
+int mx_read_file(const char* filename, t_list** bridges) {
     char* file_str = mx_file_to_str(filename);
     char** lines = mx_strsplit(file_str, '\n');
     int num = mx_atoi(lines[0]);
@@ -10,7 +10,7 @@ int read_file(const char* filename, t_list** bridges) {
     }
 
     for(int i = 1; lines[i]; i++) {
-        t_bridge* bridge = mx_split_line(lines[i]);
+        t_bridge* bridge = mx_parse_line(lines[i]);
         if(bridge != NULL) {
             mx_push_back(bridges, (void*)bridge);
         }
@@ -23,24 +23,6 @@ int read_file(const char* filename, t_list** bridges) {
     mx_del_strarr(&lines);
 
     return num;
-}
-
-t_list* mx_create_islands_list(t_list* bridges) {
-    t_list* islands = NULL;
-    t_list* tmp = bridges;
-
-    while(tmp) {
-        t_bridge* bridge = (t_bridge*)tmp->data;
-        if(mx_list_index_of(islands, bridge->left) == -1) {
-            mx_push_back(&islands, (void*)bridge->left);
-        }
-        if(mx_list_index_of(islands, bridge->right) == -1) {
-            mx_push_back(&islands, (void*)bridge->right);
-        }
-        tmp = tmp->next;
-    }
-
-    return islands;
 }
 
 

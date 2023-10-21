@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-t_bridge *mx_split_line(char* line) {
+t_bridge *mx_parse_line(char* line) {
     int hyphen = mx_get_char_index(line, '-');
     if(hyphen < 0) {
         return NULL;
