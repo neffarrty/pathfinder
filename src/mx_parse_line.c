@@ -17,7 +17,8 @@ t_bridge *mx_parse_line(char* line) {
     bridge->right = mx_strndup(&line[hyphen + 1], comma - hyphen - 1);
     bridge->cost = mx_atoi(&line[comma + 1]);
 
-    if(!mx_is_valid_island(bridge->left) || !mx_is_valid_island(bridge->right) || mx_strcmp(bridge->left, bridge->right) == 0 || bridge->cost < 0) {
+    if(!mx_is_valid_island(bridge->left) || !mx_is_valid_island(bridge->right) 
+     || mx_strcmp(bridge->left, bridge->right) == 0 || bridge->cost < 0) {
         return NULL;
     }
 

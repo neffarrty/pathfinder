@@ -5,7 +5,9 @@ int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands) {
     int **matrix = (int**)malloc(size * sizeof(int*));
     for(int i = 0; i < size; i++) {
         matrix[i] = (int*)malloc(size * sizeof(int));
-        mx_memset((void*)matrix[i], 0, size);
+        for(int j = 0; j < size; j++) {
+            matrix[i][j] = 0;
+        }
     }
 
     t_list* tmp = bridges;
