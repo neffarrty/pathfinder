@@ -1,13 +1,5 @@
 #include "../inc/pathfinder.h"
 
-void* mx_list_get_last(t_list* list) {
-    t_list* tmp = list;
-    while(tmp->next) {
-        tmp = tmp->next;
-    }
-    return tmp->data;
-}
-
 void mx_print_path(t_list* route, t_list* islands, int** matrix) {
     mx_printstr("========================================\n");
     mx_printstr("Path: ");

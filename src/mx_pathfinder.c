@@ -60,13 +60,14 @@ void mx_pathfinder(const char* filename) {
                 t_list* tmp2 = path_list2;
                 while(tmp2) {
                     int path_cost = mx_get_path_cost(path, matrix, islands_list);
-                    int path2_cost = mx_get_path_cost((t_list*)tmp2->data, matrix, islands_list);
-                    if(path_cost == path2_cost) {
+                    int temp_cost = mx_get_path_cost((t_list*)tmp2->data, matrix, islands_list);
+                    if(path_cost == temp_cost) {
                         mx_print_path((t_list*)tmp2->data, islands_list, matrix);
                     }
                     tmp2 = tmp2->next;
                 }
 
+                free(distances2);
                 for(int j = 0; j < num_of_islands; j++) {
                     free(matrix_cp[j]);
                 }
