@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
+int* mx_dijkstra(int** adj_matrix, int size, int start) {
     int* distances = (int*)malloc(size * sizeof(int));
     bool* visited = (bool*)malloc(size * sizeof(bool));
     int index = 0, weight = 0;
@@ -35,36 +35,9 @@ void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands) {
             visited[index] = true;
         }
     }
-
-    for (int i = start; i < size; i++) {
-        t_list* path = NULL;
-
-        if (distances[i] != INFINITY) { 
-            if(i != start) {
-                int end = i;
-                int weight = distances[end];
-                mx_push_front(&path, (void*)mx_strdup(mx_list_get_by_index(islands, end)));
-
-                while (end != start) {
-                    for (int j = 0; j < size; j++) {
-                        if (adj_matrix[j][end]) { 
-                            int temp = weight - adj_matrix[j][end]; 
-                        
-                            if (temp == distances[j]) {   
-                                end = j;              
-                                weight = temp;
-                                mx_push_front(&path, (void*)mx_strdup(mx_list_get_by_index(islands, j)));
-                            }
-                        }
-                    }
-                }
-                mx_print_path(start, i, path, islands, adj_matrix);
-                mx_delete_list(&path);
-            }
-        }
-    }
-    free(distances);
     free(visited);
+
+    return distances;
 }
 
 

@@ -1,6 +1,5 @@
 #include "../inc/libmx.h"
 
-
 void mx_delete_list(t_list **head) {
     t_list* prev = NULL;
 

@@ -50,9 +50,17 @@ char* mx_list_get_by_index(t_list* list, int i);
 
 void mx_pathfinder(const char* filename);
 
-void mx_dijkstra(int** adj_matrix, int size, int start, t_list* islands);
+int* mx_dijkstra(int** adj_matrix, int size, int start);
 
-void mx_print_path(int start, int end, t_list* route, t_list* islands, int** matrix);
+t_list* mx_restore_path(int** matrix, int* distances, int start, int size, t_list* islands);
+
+void mx_print_path(t_list* route, t_list* islands, int** matrix);
+
+void mx_print_distance(t_list* route, t_list* islands, int** matrix, int size);
+
+int mx_get_path_cost(t_list* path, int** matrix, t_list* islands);
+
+void* mx_list_get_last(t_list* list);
 
 #endif
 
