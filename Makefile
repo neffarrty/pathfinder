@@ -15,9 +15,10 @@ LIB = libmx.a
 
 TARGET = pathfinder
 
-.PHONY: all clean uninstall reinstall
+.PHONY: install clean uninstall reinstall help
+.DEFAULT_GOAL := help
 
-all: $(LIB) $(TARGET)
+install: $(LIB) $(TARGET) ## Build the project
 
 $(LIB):
 	make -C $(LIB_DIR)
@@ -30,18 +31,24 @@ $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $^
 	mv *.o $(OBJ_DIR)
 
-clean:
-	rm -rf $(OBJ_DIR)
-	make -C $(LIB_DIR) clean
-
-uninstall:
+uninstall: ## Delete all files and directories created during the building process
 	rm -f $(TARGET)
 	make -C $(LIB_DIR) uninstall
 
-reinstall:
+clean: ## Delete all files, excluding executables and libraries
+	rm -rf $(OBJ_DIR)
+	make -C $(LIB_DIR) clean
+
+reinstall: ## Delete all created files and build the project again
 	make -C $(LIB_DIR) reinstall
 	make clean
 	make uninstall
-	make all
+	make install
+	
+run: ## Run the program with parametr file=<filename>
+	./$(TARGET) $(file)
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 

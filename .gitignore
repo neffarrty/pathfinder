@@ -4,7 +4,5 @@
 
 !*.[ch]
 !Makefile
-
-# .vscode
-# **/obj
+!README.md
 
