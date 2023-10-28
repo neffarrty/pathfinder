@@ -2,7 +2,7 @@
 
 void mx_pathfinder(const char* filename) {
     int fd, num_of_islands = 0, **matrix = NULL;
-    t_list *bridges_list = NULL, *islands_list = NULL;
+    t_list *bridges_list = NULL, *islands_list = NULL, *path_list = NULL;
 
     fd = open(filename, O_RDONLY);
     if(fd < 0) {
@@ -33,61 +33,44 @@ void mx_pathfinder(const char* filename) {
 
     for(int i = 0; i < num_of_islands; i++) {
         int* distances = mx_dijkstra(matrix, num_of_islands, i);
-        t_list* path_list = mx_restore_path(matrix, distances, i, num_of_islands, islands_list);
-        t_list* tmp = path_list;
-
-        while(tmp) {
-            t_list* path = (t_list*)tmp->data;
-            mx_print_path(path, islands_list, matrix);
+        t_list* pathes = mx_restore_path(matrix, distances, i, num_of_islands, islands_list);
+        
+        t_list* tmp_pathes = pathes;
+        while(tmp_pathes) {
+            t_list* path = (t_list*)tmp_pathes->data;
+            mx_push_back(&path_list, (void*)path);
             
             t_list* tmp_path = path;
             while(tmp_path->next->next) {
-                int **matrix_cp = (int**)malloc(num_of_islands * sizeof(int*));
-                for(int j = 0; j < num_of_islands; j++) {
-                    matrix_cp[j] = (int*)malloc(num_of_islands * sizeof(int));
-                    for(int k = 0; k < num_of_islands; k++) {
-                        matrix_cp[j][k] = matrix[j][k];
-                    } 
-                }
+                int** new_matrix = mx_delete_node_from_matrix(matrix, num_of_islands, islands_list, (char*)tmp_path->next->data);
+                int*  new_distances = mx_dijkstra(new_matrix, num_of_islands, i);
+                t_list* new_pathes = mx_restore_path(matrix, new_distances, i, num_of_islands, islands_list);
 
-                for(int j = 0; j < num_of_islands; j++) {
-                    matrix_cp[mx_list_index_of(islands_list, (char*)tmp_path->next->data)][j] = 0;
-                    matrix_cp[j][mx_list_index_of(islands_list, (char*)tmp_path->next->data)] = 0;
-                }
-
-                int* distances2 = mx_dijkstra(matrix_cp, num_of_islands, i);
-                t_list* path_list2 = mx_restore_path(matrix, distances2, i, num_of_islands, islands_list);
-                t_list* tmp2 = path_list2;
-                while(tmp2) {
-                    int path_cost = mx_get_path_cost(path, matrix, islands_list);
-                    int temp_cost = mx_get_path_cost((t_list*)tmp2->data, matrix, islands_list);
+                t_list* new_tmp = new_pathes;
+                int path_cost = mx_get_path_cost(path, matrix, islands_list);
+                while(new_tmp) {
+                    int temp_cost = mx_get_path_cost((t_list*)new_tmp->data, matrix, islands_list);
                     if(path_cost == temp_cost) {
-                        mx_print_path((t_list*)tmp2->data, islands_list, matrix);
+                        mx_push_back(&path_list, (void*)new_tmp->data);
                     }
-                    tmp2 = tmp2->next;
+                    new_tmp = new_tmp->next;
                 }
 
-                free(distances2);
-                for(int j = 0; j < num_of_islands; j++) {
-                    free(matrix_cp[j]);
-                }
-                free(matrix_cp);
+                free(new_distances);
+                mx_free_matrix(new_matrix, num_of_islands);
 
                 tmp_path = tmp_path->next;
             }
-
-            tmp = tmp->next;
+            tmp_pathes = tmp_pathes->next;
         }
-
         free(distances);
     }
+    mx_sort_list(path_list, mx_compare_pathes);
+    mx_print_path_list(path_list, islands_list, matrix);
 
-    for(int i = 0; i < num_of_islands; i++) {
-        free(matrix[i]);
-    }
-    free(matrix);
-
-    mx_delete_list(&bridges_list);
-    mx_delete_list(&islands_list);
+    mx_free_matrix(matrix, num_of_islands);
+    mx_free_list(&path_list);
+    mx_free_list(&bridges_list);
+    mx_free_list(&islands_list);
 }
 

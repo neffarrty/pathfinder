@@ -1,6 +1,6 @@
 #include "../inc/libmx.h"
 
-void mx_delete_list(t_list **head) {
+void mx_free_list(t_list **head) {
     t_list* prev = NULL;
 
     while ((*head)->next) {
@@ -11,4 +11,5 @@ void mx_delete_list(t_list **head) {
     }
     free(*head);
 }
+
 

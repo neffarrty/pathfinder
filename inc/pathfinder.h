@@ -54,6 +54,8 @@ int* mx_dijkstra(int** adj_matrix, int size, int start);
 
 t_list* mx_restore_path(int** matrix, int* distances, int start, int size, t_list* islands);
 
+void mx_print_path_list(t_list* list, t_list* islands, int** matrix);
+
 void mx_print_path(t_list* route, t_list* islands, int** matrix);
 
 void mx_print_distance(t_list* route, t_list* islands, int** matrix, int size);
@@ -61,6 +63,12 @@ void mx_print_distance(t_list* route, t_list* islands, int** matrix, int size);
 int mx_get_path_cost(t_list* path, int** matrix, t_list* islands);
 
 void* mx_list_get_last(t_list* list);
+
+void mx_free_matrix(int** matrix, int size);
+
+int** mx_delete_node_from_matrix(int** matrix, int size, t_list* islands, char* node);
+
+bool mx_compare_pathes(void* fst, void* scd);
 
 #endif
 

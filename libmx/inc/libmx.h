@@ -149,7 +149,7 @@ void mx_pop_front(t_list **head);
 
 void mx_pop_back(t_list **head);
 
-void mx_delete_list(t_list **head);
+void mx_free_list(t_list **head);
 
 int mx_list_size(t_list *list);
 
