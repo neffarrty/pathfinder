@@ -11,6 +11,9 @@ bool mx_compare_pathes(void* fst, void* scd) {
                 if(mx_strcmp((char*)fst_tmp->data, (char*)scd_tmp->data) > 0) {
                     return true;
                 }
+                else if(mx_strcmp((char*)fst_tmp->data, (char*)scd_tmp->data) < 0) {
+                    return false;
+                }
                 fst_tmp = fst_tmp->next;
                 scd_tmp = scd_tmp->next; 
             }
