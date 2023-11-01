@@ -1,7 +1,7 @@
 #include "../inc/pathfinder.h"
 
-void mx_handle_err(int err_type, void* param) {
-    switch(err_type) {
+void mx_handle_err(int type, void* param) {
+    switch(type) {
         case INVALID_ARGS:
             mx_printerr("usage: ./pathfinder [filename]\n");
             break;

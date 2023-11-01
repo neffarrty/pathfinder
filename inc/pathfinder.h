@@ -7,25 +7,15 @@
 #include <limits.h>
 #include "../libmx/inc/libmx.h"
 
-#define INFINITY INT_MAX
+#define INF INT_MAX
 
 typedef struct s_bridge {
     char* left;
     char* right;
-    int cost;
-} t_bridge;
+    int distance;
+} 			   t_bridge;
 
-int mx_read_file(const char* filename, t_list** bridges);
-
-t_list* mx_create_islands_list(t_list* bridges);
-
-bool mx_is_valid_island(const char* s);
-
-t_bridge* mx_parse_line(char* line);
-
-int **mx_create_adjacency_matrix(t_list* bridges, t_list* islands);
-
-enum e_error {
+typedef enum e_error {
 	INVALID_ARGS,
 	INVALID_FILE,
 	EMPTY_FILE,
@@ -34,41 +24,41 @@ enum e_error {
 	INVALID_NUM_OF_ISLANDS,
 	DUPLICATE_BRIDGES,
 	INVALID_SUM_OF_BRIDGES
-};
-
-void mx_handle_err(int err_type, void* param);
-
-bool mx_list_has_bridge(t_list* list, t_bridge* key);
-
-bool mx_check_duplicates(t_list* list);
-
-bool check_invalid_sum(t_list* list);
-
-int mx_list_index_of(t_list* list, const char* key);
-
-char* mx_list_get_by_index(t_list* list, int i);
+}			t_error;
 
 void mx_pathfinder(const char* filename);
 
-int* mx_dijkstra(int** adj_matrix, int size, int start);
+void mx_check_file(const char* filename);
 
-t_list* mx_restore_path(int** matrix, int* distances, int start, int size, t_list* islands);
+int mx_create_bridges_arr(char** lines, t_bridge** bridges, int size);
 
-void mx_print_path_list(t_list* list, t_list* islands, int** matrix);
+char** mx_create_islands_arr(t_bridge** bridges, int bridges_size, int islands_size);
 
-void mx_print_path(t_list* route, t_list* islands, int** matrix);
+t_bridge* mx_parse_line(char* line, int line_num);
 
-void mx_print_distance(t_list* route, t_list* islands, int** matrix, int size);
+int **mx_create_adjacency_matrix(t_bridge** bridges, int bridges_size, char** islands, int size);
 
-int mx_get_path_cost(t_list* path, int** matrix, t_list* islands);
+void mx_handle_err(int type, void* param);
 
-void* mx_list_get_last(t_list* list);
+bool mx_check_island(const char* s);
 
-void mx_free_matrix(int** matrix, int size);
+void mx_check_duplicates(t_bridge** bridges, int size);
 
-int** mx_delete_node_from_matrix(int** matrix, int size, t_list* islands, char* node);
+void mx_check_invalid_sum(t_bridge** bridges, int size);
 
-bool mx_compare_pathes(void* fst, void* scd);
+int mx_array_index_of(char** arr, const char* key);
+
+int** mx_floyd_warshall(int** matrix, int size);
+
+void mx_print_path(int* path, int size, int** matrix, char** islands);
+
+void mx_print_all_pathes(int **adj_matrix, int **dist_matrix, int size, char **islands, int *path, int path_size);
+
+void mx_del_array(void* arr);
+
+void mx_del_matrix(int** matrix, int size);
+
+void mx_del_bridges_arr(t_bridge** bridges, int size);
 
 #endif
 

@@ -1,18 +1,14 @@
 #include "../inc/pathfinder.h"
 
-bool check_invalid_sum(t_list* list) {
+void mx_check_invalid_sum(t_bridge** bridges, int size) {
     long sum = 0;
-    t_list* tmp = list;
 
-    while(tmp) {
-        t_bridge* bridge = (t_bridge*)tmp->data;
-        sum += bridge->cost;
+    for(int i = 0; i < size; i++) {
+        sum += bridges[i]->distance;
         if(sum > INT_MAX) {
-            return true;
+            mx_handle_err(INVALID_SUM_OF_BRIDGES, NULL);
         }
-        tmp = tmp->next;
     }
-
-    return false;
 }
+
 

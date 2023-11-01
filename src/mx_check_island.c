@@ -1,6 +1,6 @@
 #include "../inc/pathfinder.h"
 
-bool mx_is_valid_island(const char* s) {
+bool mx_check_island(const char* s) {
     if(!mx_strlen(s)) {
         return false;
     }

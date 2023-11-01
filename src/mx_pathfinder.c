@@ -1,76 +1,53 @@
 #include "../inc/pathfinder.h"
 
 void mx_pathfinder(const char* filename) {
-    int fd, num_of_islands = 0, **matrix = NULL;
-    t_list *bridges_list = NULL, *islands_list = NULL, *path_list = NULL;
+    int bridges_size = 0;
+    int islands_size = 0;
+    int **adjacency_matrix = NULL;
+    int **distances_matrix = NULL;
+    char *file_str = NULL;
+    char **lines = NULL;
+    char **islands = NULL;
+    t_bridge **bridges = NULL;
 
-    fd = open(filename, O_RDONLY);
-    if(fd < 0) {
-        mx_handle_err(INVALID_FILE, (void*)filename);
+    mx_check_file(filename);
+
+    file_str = mx_file_to_str(filename);
+    lines = mx_strsplit(file_str, '\n');
+    for(int i = 1; lines[i]; i++) {
+        bridges_size++;
     }
+    bridges = (t_bridge**)malloc(bridges_size * sizeof(t_bridge*));
 
-    if(mx_file_size(fd) == 0) {
-        mx_handle_err(EMPTY_FILE, (void*)filename);
-    }
-    
-    num_of_islands = mx_read_file(filename, &bridges_list);
+    islands_size = mx_create_bridges_arr(lines, bridges, bridges_size);
 
-    if(mx_check_duplicates(bridges_list)) {
-        mx_handle_err(DUPLICATE_BRIDGES, NULL);
-    }
+    mx_check_duplicates(bridges, bridges_size);
+    mx_check_invalid_sum(bridges, bridges_size);
 
-    if(check_invalid_sum(bridges_list)) {
-        mx_handle_err(INVALID_SUM_OF_BRIDGES, NULL);
-    }
+    islands = mx_create_islands_arr(bridges, bridges_size, islands_size);
 
-    islands_list = mx_create_islands_list(bridges_list); 
+    adjacency_matrix = mx_create_adjacency_matrix(bridges, bridges_size, islands, islands_size);
 
-    if(mx_list_size(islands_list) != num_of_islands) {
-        mx_handle_err(INVALID_NUM_OF_ISLANDS, NULL);
-    }
+    distances_matrix = mx_floyd_warshall(adjacency_matrix, islands_size);
 
-    matrix = mx_create_adjacency_matrix(bridges_list, islands_list);
+    int *path = (int*)malloc((islands_size + 1) * sizeof(int));
+    int path_size = 1;
 
-    for(int i = 0; i < num_of_islands; i++) {
-        int* distances = mx_dijkstra(matrix, num_of_islands, i);
-        t_list* pathes = mx_restore_path(matrix, distances, i, num_of_islands, islands_list);
-        
-        t_list* tmp_pathes = pathes;
-        while(tmp_pathes) {
-            t_list* path = (t_list*)tmp_pathes->data;
-            mx_push_back(&path_list, (void*)path);
-            
-            t_list* tmp_path = path;
-            while(tmp_path->next->next) {
-                int** new_matrix = mx_delete_node_from_matrix(matrix, num_of_islands, islands_list, (char*)tmp_path->next->data);
-                int*  new_distances = mx_dijkstra(new_matrix, num_of_islands, i);
-                t_list* new_pathes = mx_restore_path(matrix, new_distances, i, num_of_islands, islands_list);
-
-                t_list* new_tmp = new_pathes;
-                int path_cost = mx_get_path_cost(path, matrix, islands_list);
-                while(new_tmp) {
-                    int temp_cost = mx_get_path_cost((t_list*)new_tmp->data, matrix, islands_list);
-                    if(path_cost == temp_cost) {
-                        mx_push_back(&path_list, (void*)new_tmp->data);
-                    }
-                    new_tmp = new_tmp->next;
-                }
-
-                free(new_distances);
-                mx_free_matrix(new_matrix, num_of_islands);
-
-                tmp_path = tmp_path->next;
-            }
-            tmp_pathes = tmp_pathes->next;
+    for (int i = 0; i < islands_size; i++) {
+        for (int j = i + 1; j < islands_size; j++) {
+            path[1] = i;
+            path[0] = j;
+            mx_print_all_pathes(adjacency_matrix, distances_matrix, islands_size, islands, path, path_size);
         }
-        free(distances);
     }
-    mx_sort_list(path_list, mx_compare_pathes);
-    mx_print_path_list(path_list, islands_list, matrix);
 
-    mx_free_matrix(matrix, num_of_islands);
-    mx_free_list(&path_list);
-    mx_free_list(&bridges_list);
-    mx_free_list(&islands_list);
+    mx_del_array(file_str);
+    mx_del_array(path);
+    mx_del_matrix(adjacency_matrix, islands_size);
+    mx_del_matrix(distances_matrix, islands_size);
+    mx_del_strarr(&lines);
+    mx_del_strarr(&islands);
+    mx_del_bridges_arr(bridges, bridges_size);
 }
+
 
