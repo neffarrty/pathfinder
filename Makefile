@@ -45,7 +45,7 @@ reinstall: ## Delete all created files and build the project again
 	make uninstall
 	make install
 	
-run: ## Run the program with parametr file=<filename>
+run: install ## Run the program with parametr file=<filename>
 	./$(TARGET) $(file)
 
 help:

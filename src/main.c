@@ -1,5 +1,4 @@
-#include "../inc/pathfinder.h"
-#include <stdio.h>
+#include "pathfinder.h"
 
 int main(int argc, const char* argv[]) {
     if(argc != 2) {

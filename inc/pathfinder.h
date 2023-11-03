@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <limits.h>
-#include "../libmx/inc/libmx.h"
+#include "libmx.h"
 
 #define INF INT_MAX
 

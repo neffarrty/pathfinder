@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_check_file(const char* filename) {
     int fd = open(filename, O_RDONLY);

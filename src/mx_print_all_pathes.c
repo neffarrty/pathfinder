@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_print_all_pathes(int **adj_matrix, int **dist_matrix, int size, char **islands, int *path, int path_size) {
     int start = path[0];

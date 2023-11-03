@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_pathfinder(const char* filename) {
     int bridges_size = 0;

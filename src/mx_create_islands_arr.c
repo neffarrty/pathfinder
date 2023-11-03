@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 char** mx_create_islands_arr(t_bridge** bridges, int bridges_size, int islands_size) {
     char** islands = (char**)malloc((islands_size + 1) * sizeof(char*));

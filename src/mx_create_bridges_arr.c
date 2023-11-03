@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 int mx_create_bridges_arr(char** lines, t_bridge** bridges, int size) {
     int num = mx_atoi(lines[0]);

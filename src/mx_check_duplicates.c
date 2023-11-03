@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_check_duplicates(t_bridge** bridges, int size) {
 	for(int i = 0; i < size; i++) {

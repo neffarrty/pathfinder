@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_del_array(void* arr) {
     free(arr);

@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_print_path(int* path, int size, int** matrix, char** islands) {
     mx_printstr("========================================\n");

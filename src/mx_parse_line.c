@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 t_bridge *mx_parse_line(char* line, int num_line) {
     int hyphen = mx_get_char_index(line, '-');

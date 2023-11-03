@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 int **mx_create_adjacency_matrix(t_bridge** bridges, int bridges_size, char** islands, int size) {
     int **matrix = (int**)malloc(size * sizeof(int*));

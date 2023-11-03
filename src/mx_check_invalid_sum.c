@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 void mx_check_invalid_sum(t_bridge** bridges, int size) {
     long sum = 0;

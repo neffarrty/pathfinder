@@ -1,5 +1,6 @@
 CC = clang
 CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+INCLUDES = -I inc/libmx.h
 ARFLAGS = rcs
 
 TARGET = libmx.a

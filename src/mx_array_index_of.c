@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 int mx_array_index_of(char** arr, const char* key) {
     if(arr != NULL || key != NULL) {

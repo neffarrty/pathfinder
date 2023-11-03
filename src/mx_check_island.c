@@ -1,4 +1,4 @@
-#include "../inc/pathfinder.h"
+#include "pathfinder.h"
 
 bool mx_check_island(const char* s) {
     if(!mx_strlen(s)) {
