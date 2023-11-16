@@ -3,7 +3,7 @@
 ![C](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)
 ----
 
-## About the programm
+## About the program
 The program finds all the shortest paths between all the islands, using information
 about the bridges that connect them. The program:
  * reads data from a file. Its name is specified as a command-line argument
