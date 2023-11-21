@@ -63,7 +63,13 @@ Distance: 5
 ```
 
 ## Bulding the program
-Print 'make help' to show all the commands
 ```shell
-make help
+# clone repository
+git clone https://github.com/neffarrty/Ucode-Connect-Track-C-Pathfinder/
+
+# go to the project directory
+cd Ucode-Connect-Track-C-Pathfinder/
+
+# run Makefile
+make
 ```
