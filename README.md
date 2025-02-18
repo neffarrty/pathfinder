@@ -65,10 +65,10 @@ Distance: 5
 ## Bulding the program
 ```shell
 # clone repository
-git clone https://github.com/neffarrty/Ucode-Connect-Track-C-Pathfinder/
+git clone https://github.com/neffarrty/pathfinder/
 
 # go to the project directory
-cd Ucode-Connect-Track-C-Pathfinder/
+cd pathfinder/
 
 # run Makefile
 make
